@@ -48,3 +48,4 @@
 * Build for Blog skeleton 2.0.0
 * Force rebuild of 1.4.6
 * Force rebuild of 1.4.5 after pulling 1.4.6
+* Force rebuild to pickup clean update
