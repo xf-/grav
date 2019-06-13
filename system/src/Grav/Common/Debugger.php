@@ -14,6 +14,7 @@ use Clockwork\DataSource\MonologDataSource;
 use Clockwork\DataSource\PhpDataSource;
 use Clockwork\DataSource\PsrMessageDataSource;
 use Clockwork\DataSource\XdebugDataSource;
+use Clockwork\DataSource\TwigDataSource;
 use Clockwork\Helpers\ServerTiming;
 use Clockwork\Request\UserData;
 use Clockwork\Storage\FileStorage;
@@ -30,7 +31,6 @@ use DebugBar\JavascriptRenderer;
 use DebugBar\StandardDebugBar;
 use Grav\Common\Config\Config;
 use Grav\Common\Processors\ProcessorInterface;
-use Grav\Common\Twig\TwigClockworkDataSource;
 use Grav\Framework\Psr7\Response;
 use Monolog\Logger;
 use Psr\Http\Message\RequestInterface;
@@ -149,8 +149,6 @@ class Debugger
                 if ($log instanceof Logger) {
                     $clockwork->addDataSource(new MonologDataSource($log));
                 }
-
-                $clockwork->addDataSource(new TwigClockworkDataSource());
 
                 $timeLine = $clockwork->getTimeline();
                 if ($this->requestTime !== GRAV_REQUEST_TIME) {

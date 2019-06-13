@@ -49,6 +49,11 @@ class TwigExtension extends AbstractExtension implements GlobalsInterface
     /** @var Config */
     protected $config;
 
+    public function getName()
+    {
+        return 'grav-extension';
+    }
+
     /**
      * TwigExtension constructor.
      */

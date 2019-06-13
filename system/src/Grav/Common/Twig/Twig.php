@@ -9,6 +9,8 @@
 
 namespace Grav\Common\Twig;
 
+use Clockwork\Clockwork;
+use Clockwork\DataSource\TwigDataSource;
 use Grav\Common\Grav;
 use Grav\Common\Config\Config;
 use Grav\Common\Language\Language;
@@ -23,11 +25,13 @@ use Twig\Environment;
 use Twig\Error\LoaderError;
 use Twig\Extension\CoreExtension;
 use Twig\Extension\DebugExtension;
+use Twig\Extension\ProfilerExtension;
 use Twig\Loader\ArrayLoader;
 use Twig\Loader\ChainLoader;
 use Twig\Loader\FilesystemLoader;
 use Twig\TwigFilter;
 use Twig\TwigFunction;
+use Twig\Profiler\Profile;
 
 class Twig
 {
@@ -199,8 +203,11 @@ class Twig
             $this->twig->addExtension(new TwigExtension());
             $this->twig->addExtension(new DeferredExtension());
 
-            $this->profile = new \Twig\Profiler\Profile();
-            $this->twig->addExtension(new \Twig\Extension\ProfilerExtension($this->profile));
+            /** @var Clockwork $clockwork */
+            $clockwork = $this->grav['debugger']->getClockwork();
+            if (!is_null($clockwork)) {
+                $clockwork->addDataSource(new TwigDataSource($this->twig));
+            }
 
 
             $this->grav->fireEvent('onTwigExtensions');
