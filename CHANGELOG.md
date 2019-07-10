@@ -1,23 +1,96 @@
-# v1.7.0
+# v1.7.0-beta.5
 ## mm/dd/2019
 
 1. [](#new)
-    * Added support for [clokcwork](https://underground.works/clockwork) developer tools
+    * Added a new `bin/grav server` CLI command to easily run Symfony or PHP built-in webservers
+1. [](#improved)
+    * Better support for Symfony local server `symfony server:start`
+    * Make `Route` objects immutable
+
+# v1.7.0-beta.4
+## 07/01/2019
+
+1. [](#new)
+    * Updated with Grav 1.6.12 features, improvements & fixes
+    * Added new configuration option `system.debugger.censored` to hide potentially sensitive information
+    * Added new configuration option `system.languages.include_default_lang_file_extension` to keep default language in `.md` files if set to `false`
+    * Added configuration option to set fallback content languages individually for every language
+1. [](#improved)
+    * Updated Vendor libraries
+1. [](#bugfix)
+    * Fixed `.md` page to be assigned to the default language and to be listed in translated/untranslated page list
+    * Fixed `Language::getFallbackPageExtensions()` to fall back only to default language instead of going through all languages
+    * Fixed `Language::getFallbackPageExtensions()` returning wrong file extensions when passing custom page extension
+
+# v1.7.0-beta.3
+## 06/24/2019
+
+1. [](#bugfix)
+    * Fixed Clockwork on Windows machines
+    * Fixed parent field issues on Windows machines
+    * Fixed unreliable Clockwork calls in sub-folders
+
+# v1.7.0-beta.2
+## 06/21/2019
+
+1. [](#new)
+    * Updated with Grav 1.6.11 fixes
+1. [](#improved)
+    * Updated the Clockwork text
+    
+# v1.7.0-beta.1
+## 06/14/2019
+
+1. [](#new)
+    * Added support for [Clockwork](https://underground.works/clockwork) developer tools (now default debugger)
     * Added support for [Tideways XHProf](https://github.com/tideways/php-xhprof-extension) PHP Extension for profiling method calls
+    * Added Twig profiling for Clockwork debugger
     * Updated Symfony Components to 4.3
     * Added support for Twig 2.11 (compatible with Twig 1.40+)
     * Added `$grav->exit()` method to properly terminate the request with a response
+    * Optimization: Initialize debugbar only after the configuration has been loaded
+    * Optimization: Combine some early Grav processors into a single one
+
+# v1.6.12
+## mm/dd/2019
+
+1. [](#new)
+    * Added support for custom `FormFlash` save locations
+1. [](#improved)
+    * Use new `Utils::getSupportedPageTypes()` to enforce `html,htm` at the front of the list [#2531](https://github.com/getgrav/grav/issues/2531)  
+1. [](#bugfix)
+    * Fixed some potential issues when `$grav['user']` is not set
+    * Fixed error when calling `Media::add($name, null)`
+    * Fixed `url()` returning wrong path if using stream with grav root path in it, eg: `user-data://shop` when Grav is in `/shop`
+    * Fixed `url()` not returning a path to non-existing file (`user-data://shop` => `/user/data/shop`) if it is set to fail gracefully
+    * Fixed `url()` returning false on unknown streams, such as `ftp://domain.com`, they should be treated as external URL
+    * Fixed Flex User to have permissions to save and delete his own user
+    * Fixed new Flex User creation not being possible because of username could not be given
+    * Fixed fatal error 'Expiration date must be an integer, a DateInterval or null, "double" given' [#2529](https://github.com/getgrav/grav/issues/2529)
+    
+# v1.6.11
+## 06/21/2019
+
+1. [](#new)
+    * Added `FormTrait::getAllFlashes()` method to get all the available form flash objects for the form
+    * Added creation and update timestamps to `FormFlash` objects
+1. [](#improved)
+    * Added `FormFlashInterface`, changed constructor to take `$config` array
+1. [](#bugfix)
+    * Fixed error in `ImageMedium::url()` if the image cache folder does not exist
+    * Fixed empty form flash name after file upload or form state update
+    * Fixed a bug in `Route::withParam()` method
+    * Fixed issue with `FormFlash` objects when there is no session initialized
 
 # v1.6.10
-## mm/dd/2019
+## 06/14/2019
 
 1. [](#improved)
     * Added **page blueprints** to `YamlLinter` CLI and Admin reports
     * Removed `Gitter` and `Slack` [#2502](https://github.com/getgrav/grav/issues/2502)
     * Optimizations for Plugin/Theme loading
     * Generalized markdown classes so they can be used outside of `Page` scope with a custom `Excerpts` class instance
-    * Optimization: Initialize debugbar only after the configuration has been loaded
-    * Optimization: Combine some early Grav processors into a single one
+    * Change minimal port number to 0 (unix socket) [#2452](https://github.com/getgrav/grav/issues/2452)
 1. [](#bugfix)
     * Force question to install demo content in theme update [#2493](https://github.com/getgrav/grav/issues/2493)
     * Fixed GPM errors from blueprints not being logged [#2505](https://github.com/getgrav/grav/issues/2505)
