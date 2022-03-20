@@ -512,7 +512,7 @@ trait MediaObjectTrait
         }
 
         if (!empty($method)) {
-            $this->querystring($this->querystring(null, false) . '&' . $method);
+            $this->querystring($method);
         }
 
         return $this;
